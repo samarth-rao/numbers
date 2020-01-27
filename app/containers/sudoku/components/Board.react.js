@@ -13,6 +13,17 @@ import {
   getRowStyle,
   getBoardNumberStyle,
 } from '../utils/styleUtils';
+import type {
+  SudokuFilledDataType,
+  SudokuType,
+  SudokuFilledCellObjectType,
+} from '../SudokuTypes';
+
+type Props = {
+  data: SudokuFilledDataType,
+  onTouch: (obj: SudokuFilledCellObjectType) => void,
+  activeCell: string | null,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -62,7 +73,7 @@ const Row = props => {
   );
 };
 
-export default props => {
+export default (props: Props) => {
   const {data, onTouch, activeCell} = props;
   return (
     <View style={styles.container}>

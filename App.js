@@ -4,7 +4,7 @@
  * @flow
  */
 
-import {createAppContainer} from 'react-navigation';
+import {createAppContainer, NavigationPropType} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import HomeScreen from './app/containers/home/Home.react';

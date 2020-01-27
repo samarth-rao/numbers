@@ -5,11 +5,16 @@
  */
 
 import React, {useState} from 'react';
-import {View, TouchableOpacity, Text, Picker} from 'react-native';
+import {View, TouchableOpacity, Text} from 'react-native';
 import styles from './styles';
 import SudokuGameSelectModel from './SudokuGameSelectModel.react';
+import {NavigationPropType} from 'react-navigation';
 
-const HomeScreen = props => {
+type Props = {
+  navigation: NavigationPropType,
+};
+
+const HomeScreen = (props: Props) => {
   const [sudokuModalVisible, setSudokuModalVisible] = useState(false);
   const closeSudokuModal = () => setSudokuModalVisible(false);
   const onPressSudoku = () => setSudokuModalVisible(true);

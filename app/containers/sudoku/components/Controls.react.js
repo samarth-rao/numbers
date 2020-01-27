@@ -9,6 +9,12 @@ import {Text, View, TouchableOpacity} from 'react-native';
 import {Icon} from 'react-native-elements';
 import {StyleSheet} from 'react-native';
 
+type Props = {
+  resetGame: () => void,
+  eraseBlock: () => void,
+  undoMove: () => void,
+};
+
 const styles = StyleSheet.create({
   controls: {
     flex: 1,
@@ -18,7 +24,7 @@ const styles = StyleSheet.create({
   control: {},
 });
 
-export default props => {
+export default (props: Props) => {
   const {resetGame, eraseBlock, undoMove} = props;
   return (
     <View style={styles.controls}>

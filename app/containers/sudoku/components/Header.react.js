@@ -8,6 +8,10 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Icon} from 'react-native-elements';
 
+type Props = {
+  goBack: () => void,
+};
+
 const styles = StyleSheet.create({
   headerText: {
     fontSize: 40,
@@ -34,7 +38,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default props => {
+export default (props: Props) => {
   return (
     <View style={styles.headerContainer}>
       <View style={styles.headerHomeText}>

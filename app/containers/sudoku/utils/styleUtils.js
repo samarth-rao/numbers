@@ -5,6 +5,7 @@
  */
 
 import {StyleSheet} from 'react-native';
+import type {SudokuFilledCellObjectType} from '../SudokuTypes';
 
 const styles = StyleSheet.create({
   row: {
@@ -57,7 +58,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const getCellStyle = (obj, activeCell) => {
+const getCellStyle = (
+  obj: SudokuFilledCellObjectType,
+  activeCell: string | null,
+) => {
   let styleArr = [styles.col];
   const {columnIndex, rowIndex, wrongInput} = obj;
   if (columnIndex === 0) {
@@ -76,7 +80,7 @@ const getCellStyle = (obj, activeCell) => {
   return styleArr;
 };
 
-const getRowStyle = rowIndex => {
+const getRowStyle = (rowIndex: number) => {
   const stylesArr = [styles.row];
   if (rowIndex === 0) {
     stylesArr.push(styles.borderTD);
@@ -86,7 +90,7 @@ const getRowStyle = rowIndex => {
   return stylesArr;
 };
 
-const getBoardNumberStyle = data => {
+const getBoardNumberStyle = (data: SudokuFilledCellObjectType) => {
   const styleArr = [styles.boardNumber];
   if (data.wrongInput) {
     styleArr.push(styles.wrongInput);

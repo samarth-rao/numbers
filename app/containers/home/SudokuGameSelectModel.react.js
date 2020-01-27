@@ -14,6 +14,12 @@ import {
   FlatList,
 } from 'react-native';
 
+type Props = {
+  onClose: () => void,
+  visible: boolean,
+  navigation: any,
+};
+
 const styles = StyleSheet.create({
   gameButton: {
     borderRightWidth: 1,
@@ -63,7 +69,7 @@ const Item = ({title, onPress}) => {
   );
 };
 
-export default props => {
+export default (props: Props) => {
   const {onClose, visible, navigation} = props;
   const DATA = ['Expert', 'Moderate', 'Easy'];
 
@@ -72,7 +78,7 @@ export default props => {
   };
 
   return (
-    <Modal animationType="slide" transparent={true} visible={visible}>
+    <Modal animationType="slide" transparent={false} visible={visible}>
       <View style={styles.modalContainer}>
         <View style={styles.modalInner}>
           <FlatList

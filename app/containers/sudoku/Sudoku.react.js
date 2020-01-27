@@ -1,7 +1,5 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
+ * Samarth sudoku APP
  * @format
  * @flow
  */
@@ -14,6 +12,11 @@ import NumberPanel from './components/NumberPanel.react';
 import Header from './components/Header.react';
 import Board from './components/Board.react';
 import Controls from './components/Controls.react';
+import type {SudokuFilledDataType, SudokuType} from './SudokuTypes';
+
+type Props = {
+  navigation: any,
+};
 
 const CACHE = [];
 
@@ -32,10 +35,14 @@ const cloneArray = arr => {
   return JSON.parse(JSON.stringify(arr));
 };
 
-const Sudoku = props => {
-  const [originalData, setOriginalData] = useState(generateSudoku());
-  const [data, setData] = useState(getGameData(originalData, 0));
-  const [activeCell, setActiveCell] = useState(null);
+const Sudoku = (props: Props) => {
+  const [originalData, setOriginalData] = useState<SudokuType>(
+    generateSudoku(),
+  );
+  const [data, setData] = useState<SudokuFilledDataType>(
+    getGameData(originalData, 0),
+  );
+  const [activeCell, setActiveCell] = useState<string | null>(null);
   const [mistakesCount, setMistakesCount] = useState(0);
 
   useEffect(() => {

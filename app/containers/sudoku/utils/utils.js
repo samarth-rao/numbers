@@ -1,10 +1,15 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
+ * Samarth sudoku APP
  * @format
  * @flow
  */
+
+import type {
+  SudokuFilledDataType,
+  SudokuType,
+  SudokuFilledRowDataType,
+  SudokuFilledCellObjectType,
+} from '../SudokuTypes';
 
 const createArray = () => {
   const sudoku = [];
@@ -168,16 +173,15 @@ const getEliminateRandomArray = (sudoku, c) => {
   return cloneSudoku;
 };
 
-const generateGameData = arr => {
-  const gameData = [];
+const generateGameData = (arr: SudokuType): SudokuFilledDataType => {
+  const gameData: SudokuFilledDataType = [];
   for (let i = 0; i < arr.length; i++) {
-    const objArray = [];
+    const objArray: SudokuFilledRowDataType = [];
     for (let j = 0; j < arr.length; j++) {
       const value = arr[i][j];
-      const obj = {
+      const obj: SudokuFilledCellObjectType = {
         value,
         isEditable: value === 0,
-        isActive: false,
         rowIndex: i,
         columnIndex: j,
       };
@@ -188,7 +192,10 @@ const generateGameData = arr => {
   return gameData;
 };
 
-const getGameData = (sudoku, level) => {
+const getGameData = (
+  sudoku: SudokuType,
+  level: number,
+): SudokuFilledDataType => {
   const arr = getEliminateRandomArray(sudoku, level);
   return generateGameData(arr);
 };

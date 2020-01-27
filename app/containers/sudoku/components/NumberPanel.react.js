@@ -1,13 +1,15 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
+ * Sudoku Samarth
  * @format
  * @flow
  */
 
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+
+type Props = {
+  onTouchNumber: (n: number) => void,
+};
 
 const styles = StyleSheet.create({
   inputPanel: {
@@ -30,16 +32,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InputPanel = props => {
+export default (props: Props) => {
   const {onTouchNumber} = props;
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
     <View style={styles.inputPanel}>
       {arr.map(n => (
-        <TouchableOpacity
-          key={n}
-          onPress={() => onTouchNumber(n)}
-          underlayColor="white">
+        <TouchableOpacity key={n} onPress={() => onTouchNumber(n)}>
           <View style={styles.inputView} key={n}>
             <Text style={styles.inputNum}>{n}</Text>
           </View>
