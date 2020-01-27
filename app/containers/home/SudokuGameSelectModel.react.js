@@ -1,5 +1,5 @@
 /**
- * Samarth sudoku APP
+ * Samarth Sudoku
  * @format
  * @flow
  */
