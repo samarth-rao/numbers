@@ -1,7 +1,5 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
+ * Samarth Sudoku
  * @format
  * @flow
  */
