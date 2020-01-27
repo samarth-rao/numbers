@@ -8,10 +8,10 @@ import React, {useState} from 'react';
 import {View, TouchableOpacity, Text} from 'react-native';
 import styles from './styles';
 import SudokuGameSelectModel from './SudokuGameSelectModel.react';
-import {NavigationPropType} from 'react-navigation';
+import {NavigationScreenProps} from 'react-navigation';
 
 type Props = {
-  navigation: NavigationPropType,
+  navigation: NavigationScreenProps,
 };
 
 const HomeScreen = (props: Props) => {

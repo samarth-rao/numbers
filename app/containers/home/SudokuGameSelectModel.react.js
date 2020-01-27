@@ -13,82 +13,72 @@ import {
   StyleSheet,
   FlatList,
 } from 'react-native';
+import {NavigationScreenProps} from 'react-navigation';
+import type {LEVEL} from '../sudoku/SudokuTypes';
 
 type Props = {
   onClose: () => void,
   visible: boolean,
-  navigation: any,
+  navigation: NavigationScreenProps,
 };
 
+const LEVELS: Array<LEVEL> = ['Expert', 'Medium', 'Easy'];
+
 const styles = StyleSheet.create({
+  modalContainer: {
+    justifyContent: 'center',
+    // height: 400,
+  },
+  modalInner: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   gameButton: {
+    marginTop: 30,
     borderRightWidth: 1,
     borderLeftWidth: 1,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     width: 300,
+    height: 70,
     borderColor: '#ccc',
     backgroundColor: '#fff',
     alignItems: 'center',
-    borderRadius: 30,
+    borderRadius: 15,
     shadowColor: 'rgba(0, 0, 0, 0.1)',
     shadowOpacity: 0.8,
-    elevation: 6,
-    shadowRadius: 15,
-    shadowOffset: {width: 1, height: 13},
+    elevation: 3,
+    shadowRadius: 8,
+    shadowOffset: {width: 1, height: 8},
   },
   gameButtonText: {
     color: '#2980b9',
     fontSize: 45,
   },
-  modalContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalInner: {
-    // flex: 1,
-    top: 200,
-    width: 300,
-    height: 300,
-    backgroundColor: '#fff',
-    alignSelf: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    color: '#2c3e50',
-  },
 });
-
-const Item = ({title, onPress}) => {
-  return (
-    <TouchableOpacity onPress={() => onPress(id)}>
-      <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-};
 
 export default (props: Props) => {
   const {onClose, visible, navigation} = props;
-  const DATA = ['Expert', 'Moderate', 'Easy'];
 
-  const onPress = a => {
-    navigation.navigate('Sudoku');
+  const onPress = (level: LEVEL) => {
+    onClose();
+    navigation.navigate('Sudoku', {level});
   };
 
   return (
     <Modal animationType="slide" transparent={false} visible={visible}>
-      <View style={styles.modalContainer}>
-        <View style={styles.modalInner}>
-          <FlatList
-            data={DATA}
-            renderItem={({item}) => <Item title={item} onPress={onPress} />}
-          />
-          <TouchableOpacity onPress={onClose}>
-            <Text>Hide Modal</Text>
+      <TouchableOpacity onPress={onClose}>
+        <Text>Hide Modal</Text>
+      </TouchableOpacity>
+      <View style={styles.modalInner}>
+        {LEVELS.map(level => (
+          <TouchableOpacity key={level} onPress={() => onPress(level)}>
+            <View style={styles.gameButton}>
+              <Text style={styles.gameButtonText}>{level}</Text>
+            </View>
           </TouchableOpacity>
-        </View>
+        ))}
       </View>
     </Modal>
   );

@@ -42,7 +42,7 @@ const getRandomNumberArr = () => {
   return arr;
 };
 
-const fillDiagonalBlock = (sudoku, _bi) => {
+const fillDiagonalBlock = (sudoku: SudokuType, _bi: number) => {
   const arr = getRandomNumberArr();
   let k = 0;
   for (let i = 0; i < 3; i++) {
@@ -53,39 +53,44 @@ const fillDiagonalBlock = (sudoku, _bi) => {
   }
 };
 
-const fillDiagonalBlocks = sudoku => {
+const fillDiagonalBlocks = (sudoku: SudokuType) => {
   for (let i = 0; i < 3; i++) {
     fillDiagonalBlock(sudoku, i * 3);
   }
 };
 
-const isUsedInRow = (sudoku, rowIndex, num) => {
+const isUsedInRow = (sudoku: SudokuType, rowIndex: number, num: number) => {
   for (let i = 0; i < 9; i++) {
     const n = sudoku[rowIndex][i];
-    if (n && n === num) {
+    if (n !== 0 && n === num) {
       return true;
     }
   }
   return false;
 };
 
-const isUsedInCol = (sudoku, columnIndex, num) => {
+const isUsedInCol = (sudoku: SudokuType, columnIndex: number, num: number) => {
   for (let i = 0; i < 9; i++) {
-    const n = sudoku[i][columnIndex];
-    if (n && n === num) {
+    const n: number = sudoku[i][columnIndex];
+    if (n !== 0 && n === num) {
       return true;
     }
   }
   return false;
 };
 
-const isUsedInBlock = (sudoku, rowIndex, columnIndex, num) => {
+const isUsedInBlock = (
+  sudoku: SudokuType,
+  rowIndex: number,
+  columnIndex: number,
+  num: number,
+) => {
   const startRow = rowIndex - (rowIndex % 3);
   const startCol = columnIndex - (columnIndex % 3);
   for (let i = startRow; i < startRow + 3; i++) {
     for (let j = startCol; j < startCol + 3; j++) {
       const n = sudoku[i][j];
-      if (n && n === num) {
+      if (n !== 0 && n === num) {
         return true;
       }
     }
@@ -93,7 +98,12 @@ const isUsedInBlock = (sudoku, rowIndex, columnIndex, num) => {
   return false;
 };
 
-const isSafeNum = (sudoku, rowIndex, columnIndex, num) => {
+const isSafeNum = (
+  sudoku: SudokuType,
+  rowIndex: number,
+  columnIndex: number,
+  num: number,
+) => {
   return (
     !isUsedInBlock(sudoku, rowIndex, columnIndex, num) &&
     !isUsedInRow(sudoku, rowIndex, num) &&
@@ -131,7 +141,6 @@ const fillRemainingBlock = (sudoku, i, j) => {
     if (isSafeNum(sudoku, i, j, num)) {
       sudoku[i][j] = num;
       if (fillRemainingBlock(sudoku, i, j + 1)) {
-        console.log(i, j);
         return true;
       }
       sudoku[i][j] = 0;
@@ -144,27 +153,19 @@ const generateSudoku = () => {
   const sudoku = createArray();
   fillDiagonalBlocks(sudoku);
   fillRemainingBlock(sudoku, 0, 3);
-  console.log(counter);
   return sudoku;
 };
 
-const randomGenerator = num => {
-  return Math.floor(Math.random() * num + 1);
+const randomGenerator = (num: number): number => {
+  return Math.floor(Math.random() * num);
 };
 
 const getEliminateRandomArray = (sudoku, c) => {
   const cloneSudoku = JSON.parse(JSON.stringify(sudoku));
   let count = c;
   while (count != 0) {
-    const cellId = randomGenerator(81);
-    let i = parseInt(cellId / 9);
-    let j = cellId % 9;
-    if (j != 0) {
-      j = j - 1;
-    }
-    if (i > 8) {
-      i = i - 1;
-    }
+    const i = randomGenerator(9);
+    const j = randomGenerator(9);
     if (cloneSudoku[i][j] != 0) {
       count--;
       cloneSudoku[i][j] = 0;

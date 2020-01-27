@@ -19,3 +19,5 @@ export type SudokuFilledRowDataType = Array<SudokuFilledCellObjectType>;
 export type SudokuFilledDataType = Array<SudokuFilledRowDataType>;
 
 export type SudokuType = Array<Array<number>>;
+
+export type LEVEL = 'Easy' | 'Medium' | 'Expert';

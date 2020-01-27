@@ -12,10 +12,11 @@ import NumberPanel from './components/NumberPanel.react';
 import Header from './components/Header.react';
 import Board from './components/Board.react';
 import Controls from './components/Controls.react';
-import type {SudokuFilledDataType, SudokuType} from './SudokuTypes';
+import type {SudokuFilledDataType, SudokuType, LEVEL} from './SudokuTypes';
+import {NavigationScreenProps} from 'react-navigation';
 
 type Props = {
-  navigation: any,
+  navigation: NavigationScreenProps,
 };
 
 const CACHE = [];
@@ -35,12 +36,27 @@ const cloneArray = arr => {
   return JSON.parse(JSON.stringify(arr));
 };
 
+const getLevel = (level: LEVEL): number => {
+  switch (level) {
+    case 'Expert':
+      return 60;
+    case 'Medium':
+      return 50;
+    case 'Easy':
+    default:
+      return 40;
+  }
+};
+
 const Sudoku = (props: Props) => {
+  const {navigate, state} = props.navigation;
+  const {params} = state;
+  const level = getLevel(params.level);
   const [originalData, setOriginalData] = useState<SudokuType>(
     generateSudoku(),
   );
   const [data, setData] = useState<SudokuFilledDataType>(
-    getGameData(originalData, 0),
+    getGameData(originalData, level),
   );
   const [activeCell, setActiveCell] = useState<string | null>(null);
   const [mistakesCount, setMistakesCount] = useState(0);
@@ -114,7 +130,7 @@ const Sudoku = (props: Props) => {
   };
 
   const goBack = () => {
-    props.navigation.navigate('Home');
+    navigate('Home');
   };
 
   return (
